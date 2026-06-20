@@ -69,21 +69,13 @@ async createEmployee(
 
     await this.lastName.fill(lastName);
 
-    console.log('First Name:', await this.firstName.inputValue());
-    console.log('Last Name:', await this.lastName.inputValue());
-
-    await this.page.screenshot({
-        path: 'screenshots/before-save.png'
-    });
-
-    await this.saveButton.click();
-
-    await this.page.waitForTimeout(5000);
-
-    console.log(
-        'Current URL After Save:',
-        this.page.url()
-    );
+    await Promise.all([
+        this.page.waitForURL(
+            /viewPersonalDetails/,
+            { timeout: 20000 }
+        ),
+        this.saveButton.click()
+    ]);
 
 }
 

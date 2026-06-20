@@ -5,6 +5,7 @@ import { PIMPage } from '../pages/PIMPage';
 
 import { loginData } from '../test-data/loginData';
 import { employeeData } from '../test-data/employeeData';
+import { takeEvidence } from '../utils/screenshotHelper';
 
 test.describe('Lead Management Module', () => {
 
@@ -25,14 +26,22 @@ test.describe('Lead Management Module', () => {
 
         await pim.clickAddEmployee();
 
-        await pim.createEmployee(
-            employeeData.validEmployee.firstName,
-            employeeData.validEmployee.lastName
-        );
+      await pim.createEmployee(
+    employeeData.validEmployee.firstName,
+    employeeData.validEmployee.lastName
+);
 
-        await expect(page.url())
-    .toContain('viewPersonalDetails');
 
-    });
+await expect(page)
+    .toHaveURL(/viewPersonalDetails/);
+
+await takeEvidence(
+    page,
+    'TC-009',
+    'CreateLeadWithValidData',
+    'PASS'
+);
+
+});
 
 });
