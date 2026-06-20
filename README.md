@@ -1,2 +1,2 @@
 # crm-lead-management-automation
-QA Portfolio Project using Playwright, TypeScript, Page Object Model (POM), and Cross-Browser Testing.
+QA Portfolio Project demonstrating Playwright Automation, TypeScript, POM, Cross-Browser Testing, and End-to-End QA Lifecycle.
