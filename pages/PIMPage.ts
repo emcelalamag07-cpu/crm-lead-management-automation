@@ -14,12 +14,23 @@ export class PIMPage {
 
     readonly employeeNameSearch: Locator;
     readonly searchButton: Locator;
+    readonly requiredFieldValidation: Locator;
+    readonly noRecordsFound: Locator;
+    
 
     constructor(page: Page) {
 
         this.page = page;
 
         this.pimMenu = page.locator('//span[text()="PIM"]');
+
+        this.requiredFieldValidation = page.locator('.oxd-input-field-error-message');
+
+        this.employeeNameSearch = page.locator('input[placeholder="Type for hints..."]').first();
+
+        this.searchButton = page.getByRole('button', { name: 'Search' });
+
+        this.noRecordsFound = page.getByText('No Records Found').first();
 
         this.addEmployeeButton = page.locator(
             '//button[normalize-space()="Add"]'
@@ -60,7 +71,7 @@ export class PIMPage {
 
     }
 
-async createEmployee(
+    async createEmployee(
     firstName: string,
     lastName: string
 ) {
@@ -69,15 +80,19 @@ async createEmployee(
 
     await this.lastName.fill(lastName);
 
-    await Promise.all([
-        this.page.waitForURL(
-            /viewPersonalDetails/,
-            { timeout: 20000 }
-        ),
-        this.saveButton.click()
-    ]);
+    await this.saveButton.click();
 
 }
+
+    async isRequiredMessageDisplayed() {
+
+    return await this.requiredFieldValidation
+        .first()
+        .isVisible();
+
+}
+
+
 
     async searchEmployee(
         employeeName: string
