@@ -30,7 +30,8 @@ test.describe('Lead Management Module', () => {
             employeeData.validEmployee.lastName
         );
 
-        await expect(page).toHaveURL(/viewPersonalDetails/);
+        await expect(page.url())
+    .toContain('viewPersonalDetails');
 
     });
 
